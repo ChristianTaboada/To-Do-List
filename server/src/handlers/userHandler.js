@@ -1,5 +1,5 @@
 const {User} = require('../db')
-const {createUser} = require('../controllers/userController')
+const {createUser, getUser} = require('../controllers/userController')
 
 const createUserHandler = async (req, res) => {
     try{
@@ -26,6 +26,18 @@ const createUserHandler = async (req, res) => {
     }
 }
 
+const getUserHandler = async(req, res) => {
+    try{
+        const {userId} = req.params
+        const user = await getUser(userId)
+        res.status(200).json(user)     
+    } catch(error) {
+        console.error(error)
+        res.status(500).json({ error: "Error al buscar el usuario"})
+    }
+}
+
 module.exports = {
     createUserHandler,
+    getUserHandler
 };

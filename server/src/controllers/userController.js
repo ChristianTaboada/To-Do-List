@@ -14,6 +14,19 @@ const createUser = async (name, email, password) => {
     }
 }
 
+const getUser = async (userId) => {
+    try{
+        const user = await User.findByPk(userId);
+        if(!user) {
+            throw new Error("Usuario no encontrado")
+        }
+        return user;
+    } catch(error) {
+        throw(error)
+    }
+}
+
 module.exports = {
     createUser,
+    getUser
 }
